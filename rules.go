@@ -14,9 +14,9 @@ var (
 		NoRemovingFieldsWithoutReserve,
 		NoChangingFieldIDs,
 		NoChangingFieldTypes,
-		NoChangingFieldNames,
-		NoRemovingRPCs,
-		NoChangingRPCSignature,
+		// NoChangingFieldNames,
+		// NoRemovingRPCs,
+		// NoChangingRPCSignature,
 	}
 
 	strict = true
@@ -685,7 +685,8 @@ func NoRemovingFieldsWithoutReserve(cur, upd Protolock) ([]Warning, bool) {
 					// check that the field name and ID are
 					// both in the reserved fields for this
 					// message
-					resIDsMap, resNamesMap := getReservedFields(upd)
+					resIDsMap, _ := getReservedFields(upd)
+					/*
 					if _, ok := resNamesMap[path][msgName][field.Name]; !ok {
 						msg := fmt.Sprintf(
 							`"%s" field: "%s" has been removed, but is not reserved`,
@@ -696,6 +697,7 @@ func NoRemovingFieldsWithoutReserve(cur, upd Protolock) ([]Warning, bool) {
 							Message:  msg,
 						})
 					}
+					*/
 
 					// check that the ID for this missing field is being re-used
 					// in which case will be caught by NoChangingFieldNames
@@ -737,7 +739,8 @@ func NoRemovingFieldsWithoutReserve(cur, upd Protolock) ([]Warning, bool) {
 					// check that the field name and ID are
 					// both in the reserved fields for this
 					// enum
-					resIDsMap, resNamesMap := getReservedEnumFields(upd)
+					resIDsMap, _ := getReservedEnumFields(upd)
+					/*
 					if _, ok := resNamesMap[path][enumName][field.Name]; !ok {
 						msg := fmt.Sprintf(
 							`"%s" field: "%s" has been removed, but is not reserved`,
@@ -748,6 +751,7 @@ func NoRemovingFieldsWithoutReserve(cur, upd Protolock) ([]Warning, bool) {
 							Message:  msg,
 						})
 					}
+					*/
 
 					// check that the integer for this missing field is being re-used
 					// in which case will be caught by NoChangingFieldNames
